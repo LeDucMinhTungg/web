@@ -118,185 +118,375 @@
         details details {
             margin-left: 20px;
         }
+        .auth-buttons {
+            display: flex;
+            justify-content: flex-end; /* căn nút về bên phải */
+            gap: 10px; /* khoảng cách giữa các nút */
+            padding: 10px 20px; /* lùi nút vào trong */
+        }
+
+        button{
+            text-align: right;
+        }
+
+        .button-1 {
+            width: auto;
+            padding: 12px;
+            margin-top: 5px;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .button-3 {
+            width: auto;
+            padding: 12px;
+            margin-top: 5px;
+            font-weight: bold;
+            color: rgb(63, 62, 62);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .button-2 {
+            display: block;
+            margin: 16px auto 0 auto; 
+            padding: 12px 24px;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover{
+            color: #f4f009;
+        }
+
+        .form-container {
+            display: none;
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .hidden-content {
+            display: none;
+            padding: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .message-success {
+            font-size: 20px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-error {
+            font-size: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
 <header>
+    <div class="auth-buttons">
+        <button class="button-1" id="loginBtn" onclick="showLoginForm()">Đăng nhập</button>
+        <button class="button-1" onclick="showRegisterForm()">Đăng ký</button>
+        <button class="button-3" id="logoutBtn" onclick="logout()" style="display: none;">Đăng xuất</button>
+      </div>
     <h1>THÁC BẢN GIỐC</h1>
-    <p>Vẻ đẹp kỳ vĩ giữa non nước cao bằng</p>
+    <p>Vẻ đẹp kỳ vĩ giữa non nước Cao Bằng</p>
 </header>
 
-<div class="container">
-    <div class="section">
-        <details>
-            <summary>1. Giới thiệu tổng quan về Thác Bản Giốc</summary>
-                <li>Thác Bản Giốc nằm tại xã Đàm Thủy, huyện Trùng Khánh, tỉnh Cao Bằng, Việt Nam, cách Hà Nội khoảng 335 km về phía bắc. Đây là một trong những thác nước tự nhiên lớn và đẹp nhất Đông Nam Á, nổi bật với cảnh quan hùng vĩ và thơ mộng.</p>
-                <li>Thác Bản Giốc được hình thành từ dòng sông Quây Sơn, chia thành hai phần: thác chính và thác phụ. Thác chính có chiều rộng khoảng 100m, nước đổ xuống từ độ cao 70m, tạo nên những màn sương mờ ảo và âm thanh vang vọng giữa núi rừng.</p>
-                <li>Đặc biệt, thác Bản Giốc nằm trên đường biên giới giữa Việt Nam và Trung Quốc, với phần thác chính thuộc cả hai quốc gia. Theo một số nguồn tin, thác Bản Giốc được xếp hạng là thác nước lớn thứ tư thế giới trong số các thác nước nằm trên đường biên giới giữa các quốc gia.</p>
-                <li>Thời điểm lý tưởng để tham quan thác Bản Giốc là từ tháng 9 đến tháng 10, khi nước trong xanh và thời tiết mát mẻ. Ngoài việc chiêm ngưỡng vẻ đẹp của thác, du khách còn có thể khám phá các điểm đến gần đó như động Ngườm Ngao và làng nghề truyền thống của người Tày, người Nùng.</p>
-        </details>
-    </div>
+  <div class="form-container" id="loginForm">
+    <h2>Đăng nhập</h2>
+    <input type="text" id="loginUser" placeholder="Tên đăng nhập">
+    <input type="password" id="loginPass" placeholder="Mật khẩu">
+    <button class="button-2" onclick="login()">Xác nhận</button>
+  </div>
 
-    <div class="section">
-        <details>
-            <summary>2. Hướng dẫn di chuyển đến Thác Bản Giốc</summary>
-                <h3>Từ Hà Nội:</h3>
-                    <h4>2.1 Xe khách:</h4>
-                        <ul class="ul-1">
-                            <li><strong>Lộ trình:</strong> Từ bến xe Mỹ Đình, bạn có thể bắt xe khách đi thành phố Cao Bằng. Thời gian khởi hành thường vào buổi tối, giá vé khoảng 300.000 đồng/người.</li>
-                            <li><strong>Từ Cao Bằng đến thác Bản Giốc:</strong> Sau khi đến thành phố Cao Bằng, bạn có thể tiếp tục hành trình đến thác Bản Giốc bằng xe buýt hoặc thuê xe máy. Xe buýt từ bến xe Cao Bằng đến thác khởi hành với tần suất khoảng 30 phút/chuyến, điểm dừng cuối ngay cổng thác.</li>
-                        </ul>
-                    <h4>2.2 Phương tiện cá nhân (ô tô hoặc xe máy):</h4>
-                        <ul class="ul-1">
-                            <li><strong>Cung đường 1:</strong> Từ trung tâm Hà Nội, đi qua cầu Thanh Trì, vào cao tốc Hà Nội – Thái Nguyên, tiếp tục qua Bắc Kạn theo Quốc lộ 3 đến thành phố Cao Bằng. Từ đây, đi theo Quốc lộ 3 / Quốc lộ 34 đến huyện Trùng Khánh, sau đó theo đường ĐT206 đến thác Bản Giốc.</li>
-                            <li><strong>Cung đường 2:</strong> Từ Hà Nội, đi theo Quốc lộ 1 đến Thất Khê, sau đó qua Trùng Khánh để đến thác Bản Giốc.</li>
-                        </ul>
-                <figure>
-                    <img src="https://bizweb.dktcdn.net/100/006/093/files/cam-nang-du-lich-thac-ban-gioc-thichlabay-4.jpg?v=1558924193750" alt="Cung đường đến Thác Bản Giốc tuyến từ Hà Nội">
-                    <figcaption>Cung đường đến Thác Bản Giốc tuyến từ Hà Nội.</figcaption>
-                </figure>
-                <h3>Từ Thành phố Hồ Chí Minh:</h3>
-                <p>Bạn cần bay đến Hà Nội trước, sau đó tiếp tục hành trình như đã hướng dẫn ở trên.​</p>
-                <h3>Lưu ý chung:</h3>
-                    <ul class="ul-2">
-                        <li><strong>Thời gian di chuyển:</strong> Tổng thời gian từ Hà Nội đến thác Bản Giốc khoảng từ 7-8 giờ, tùy thuộc vào phương tiện và điều kiện giao thông vào thời điểm chuyến đi.​</li>
-                        <li><strong>Chuẩn bị:</strong> Đảm bảo phương tiện trong tình trạng tốt, mang theo đầy đủ giấy tờ tùy thân và tuân thủ luật giao thông.</li>
-                        <li><strong>An toàn:</strong> Đường đến thác có nhiều đoạn đèo dốc, cần lái xe cẩn thận và chú ý an toàn.</li>
-                    </ul>
-        </details>
-    </div>
+  <div id="login-message" class="message-box" style="display: none;"></div>
+  
 
-    <div class="section">
-        <details>
-            <summary>3. Hoạt động và trải nghiệm tại Thác Bản Giốc</summary>
-            <ul class="ul-3">
-                <li><strong>Đi thuyền trên sông Quây Sơn:</strong> Du khách có thể thuê thuyền tre để tiếp cận gần hơn với thác, cảm nhận sự mạnh mẽ của dòng nước và chiêm ngưỡng cảnh quan từ nhiều góc độ khác nhau.</li>
-                <figure>
-                    <img src="https://nld.mediacdn.vn/2020/12/25/anh3-1-16088613938181370619273.jpg" alt="Dòng Quây Sơn uốn lượn giữa cánh đồng xanh mướt">
-                    <figcaption>Dòng Quây Sơn uốn lượn giữa cánh đồng xanh mướt.</figcaption>
-                </figure>
-                <li><strong>Cắm trại và dã ngoại:</strong> Khu vực thảm cỏ rộng rãi gần chân thác là địa điểm lý tưởng để tổ chức các buổi cắm trại, picnic cùng gia đình và bạn bè, tận hưởng không khí trong lành và khung cảnh thiên nhiên tuyệt đẹp.</li>
-                <figure>
-                    <img src="https://songcatinh.com/wp-content/uploads/2023/10/tat-tan-tat-kinh-nghiem-di-cam-trai-thac-ban-gioc-03.jpg" alt="Cắm trại tại thác Bản Giốc">
-                    <figcaption>Cắm trại tại thác Bản Giốc.</figcaption>
-                </figure>
-                <li><strong>Tham quan chùa Phật Tích Trúc Lâm Bản Giốc:</strong> Nằm trên ngọn núi gần thác, ngôi chùa không chỉ là nơi tâm linh mà còn là điểm ngắm cảnh tuyệt vời, bao quát toàn bộ khu vực thác và vùng biên giới.</li>
-                <figure>
-                    <img src="https://bvhttdl.mediacdn.vn/291773308735864832/2022/8/9/chua-phat-tich-truc-lam-ban-gioc-dat-phat-o-mien-bien-gioi-cao-bang-6-1660016751092489870754-1660038410526-16600384106311680141622.jpg" alt="Chùa Trúc Lâm">
-                    <figcaption>Chùa Phật Tích Trúc Lâm Bản Giốc được khách thập phương biết đến không chỉ có vai trò to lớn về mặt tâm linh mà ngôi chùa này còn được biết đến là một địa điểm du lịch nổi tiếng với địa thế hết sức đặc biệt.</figcaption>
-                </figure>
-                <li><strong>Khám phá động Ngườm Ngao:</strong> Cách thác Bản Giốc khoảng 3 km, động Ngườm Ngao nổi tiếng với hệ thống thạch nhũ đa dạng và kỳ ảo, là điểm đến không thể bỏ qua khi đến khu vực này.</li>
-                <figure>
-                    <img src="https://ik.imagekit.io/tvlk/blog/2023/03/go-and-share-dong-nguom-ngao-11.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" alt="Động Ngườm Ngao">
-                    <figcaption>Động Ngườm Ngao - Kiệt tác thiên nhiên hiếm có ở Cao Bằng.</figcaption>
-                </figure>
-                <li><strong>Tham gia lễ hội thác Bản Giốc:</strong> Thường được tổ chức vào đầu tháng 10 hàng năm, lễ hội là dịp để du khách trải nghiệm các hoạt động văn hóa truyền thống, trò chơi dân gian và thưởng thức ẩm thực địa phương.</li>
-                <figure>
-                    <img src="https://nads.1cdn.vn/2023/10/12/8-xac-lap-ky-luc-then-1000-nguoi.jpg" alt="Lễ hội ở thác Bản Giốc">
-                    <figcaption>Lễ rước nước cầu quốc thái dân an, mưa thuận, gió hòa.</figcaption>
-                </figure>
-                <li><strong>Khám phá làng đá cổ Khuổi Ky:</strong> Ngôi làng với những ngôi nhà sàn bằng đá độc đáo, mang đậm nét văn hóa của người Tày, nằm gần thác Bản Giốc, là điểm đến thú vị cho những ai yêu thích tìm hiểu văn hóa bản địa.</li>
-                <figure>
-                    <img src="https://daxanhthanhhoa.com/uploads/580/258-Ghe-tham-ngoi-lang-da-hon-400-nam-tuoi-o-Cao-Bang-1.png" alt="Làng đá Khuổi Ky.">
-                    <figcaption>Làng đá Khuổi Ky đang dần trở thành điểm đến du khách không thể bỏ qua khi tới xã Đàm Thủy, huyện Trùng Khánh, tỉnh Cao Bằng..</figcaption>
-                </figure>
-            </ul>
-        </details>
-    </div>
-    <div class="section">
-        <details>
-            <summary>4. Dịch vụ và tiện ích xung quanh thác Bản Giốc</summary>
-                <details>
-                    <summary class="summary-1">4.1 Lưu trú</summary>
+  <div class="form-container" id="registerForm">
+    <h2>Đăng ký</h2>
+    <input type="text" id="regUser" placeholder="Tên đăng nhập">
+    <input type="password" id="regPass" placeholder="Mật khẩu">
+    <button class="button-2" onclick="register()">Tạo tài khoản</button>
+  </div>
+
+<div class="success-message" id="message"></div>
+
+<div class="hidden-content" id="mainContent">
+    <div class="container">
+        <div class="section">
+            <details>
+                <summary>1. Giới thiệu tổng quan về Thác Bản Giốc</summary>
+                    <li>Thác Bản Giốc nằm tại xã Đàm Thủy, huyện Trùng Khánh, tỉnh Cao Bằng, Việt Nam, cách Hà Nội khoảng 335 km về phía bắc. Đây là một trong những thác nước tự nhiên lớn và đẹp nhất Đông Nam Á, nổi bật với cảnh quan hùng vĩ và thơ mộng.</p>
+                    <li>Thác Bản Giốc được hình thành từ dòng sông Quây Sơn, chia thành hai phần: thác chính và thác phụ. Thác chính có chiều rộng khoảng 100m, nước đổ xuống từ độ cao 70m, tạo nên những màn sương mờ ảo và âm thanh vang vọng giữa núi rừng.</p>
+                    <li>Đặc biệt, thác Bản Giốc nằm trên đường biên giới giữa Việt Nam và Trung Quốc, với phần thác chính thuộc cả hai quốc gia. Theo một số nguồn tin, thác Bản Giốc được xếp hạng là thác nước lớn thứ tư thế giới trong số các thác nước nằm trên đường biên giới giữa các quốc gia.</p>
+                    <li>Thời điểm lý tưởng để tham quan thác Bản Giốc là từ tháng 9 đến tháng 10, khi nước trong xanh và thời tiết mát mẻ. Ngoài việc chiêm ngưỡng vẻ đẹp của thác, du khách còn có thể khám phá các điểm đến gần đó như động Ngườm Ngao và làng nghề truyền thống của người Tày, người Nùng.</p>
+            </details>
+        </div>
+
+        <div class="section">
+            <details>
+                <summary>2. Hướng dẫn di chuyển đến Thác Bản Giốc</summary>
+                    <h3>Từ Hà Nội:</h3>
+                        <h4>2.1 Xe khách:</h4>
+                            <ul class="ul-1">
+                                <li><strong>Lộ trình:</strong> Từ bến xe Mỹ Đình, bạn có thể bắt xe khách đi thành phố Cao Bằng. Thời gian khởi hành thường vào buổi tối, giá vé khoảng 300.000 đồng/người.</li>
+                                <li><strong>Từ Cao Bằng đến thác Bản Giốc:</strong> Sau khi đến thành phố Cao Bằng, bạn có thể tiếp tục hành trình đến thác Bản Giốc bằng xe buýt hoặc thuê xe máy. Xe buýt từ bến xe Cao Bằng đến thác khởi hành với tần suất khoảng 30 phút/chuyến, điểm dừng cuối ngay cổng thác.</li>
+                            </ul>
+                        <h4>2.2 Phương tiện cá nhân (ô tô hoặc xe máy):</h4>
+                            <ul class="ul-1">
+                                <li><strong>Cung đường 1:</strong> Từ trung tâm Hà Nội, đi qua cầu Thanh Trì, vào cao tốc Hà Nội – Thái Nguyên, tiếp tục qua Bắc Kạn theo Quốc lộ 3 đến thành phố Cao Bằng. Từ đây, đi theo Quốc lộ 3 / Quốc lộ 34 đến huyện Trùng Khánh, sau đó theo đường ĐT206 đến thác Bản Giốc.</li>
+                                <li><strong>Cung đường 2:</strong> Từ Hà Nội, đi theo Quốc lộ 1 đến Thất Khê, sau đó qua Trùng Khánh để đến thác Bản Giốc.</li>
+                            </ul>
+                    <figure>
+                        <img src="https://bizweb.dktcdn.net/100/006/093/files/cam-nang-du-lich-thac-ban-gioc-thichlabay-4.jpg?v=1558924193750" alt="Cung đường đến Thác Bản Giốc tuyến từ Hà Nội">
+                        <figcaption>Cung đường đến Thác Bản Giốc tuyến từ Hà Nội.</figcaption>
+                    </figure>
+                    <h3>Từ Thành phố Hồ Chí Minh:</h3>
+                    <p>Bạn cần bay đến Hà Nội trước, sau đó tiếp tục hành trình như đã hướng dẫn ở trên.​</p>
+                    <h3>Lưu ý chung:</h3>
                         <ul class="ul-2">
-                            <li><strong>Sài Gòn – Bản Giốc Resort:</strong> Nằm gần thác, resort này cung cấp chỗ ở tiện nghi với tầm nhìn đẹp, giúp du khách dễ dàng tham quan và ngắm cảnh thác vào mọi thời điểm trong ngày.</li>
-                            <li><strong>Homestay địa phương:</strong> Ngoài resort, khu vực xung quanh thác còn có nhiều homestay như Minh Khang Homestay, Yến Nhi Homestay, mang đến trải nghiệm gần gũi với văn hóa bản địa và chi phí hợp lý.</li>
+                            <li><strong>Thời gian di chuyển:</strong> Tổng thời gian từ Hà Nội đến thác Bản Giốc khoảng từ 7-8 giờ, tùy thuộc vào phương tiện và điều kiện giao thông vào thời điểm chuyến đi.​</li>
+                            <li><strong>Chuẩn bị:</strong> Đảm bảo phương tiện trong tình trạng tốt, mang theo đầy đủ giấy tờ tùy thân và tuân thủ luật giao thông.</li>
+                            <li><strong>An toàn:</strong> Đường đến thác có nhiều đoạn đèo dốc, cần lái xe cẩn thận và chú ý an toàn.</li>
                         </ul>
-                        <figure>
-                            <img src="https://sinhtour.vn/wp-content/uploads/2022/03/khach-san-o-thac-ban-gioc-1.jpg" alt="Sài Gòn – Bản Giốc resort">
-                            <figcaption>Sài Gòn – Bản Giốc resort.</figcaption>
-                        </figure>
-                        <figure>
-                            <img src="https://lh3.googleusercontent.com/p/AF1QipMndsp6niyasdx0YgJkLKKcGvEP0XZxEGeha4ir=s1360-w1360-h1020" alt="Yến Nhi Bản Giốc homestay">
-                            <figcaption>Yến Nhi Bản Giốc homestay.</figcaption>
-                        </figure>
-                </details>
-                <details>
-                    <summary class="summary-1">4.2 Ẩm thực</summary>
-                        <p><strong>Nhà hàng và quán ăn:</strong> Khu vực gần thác có các nhà hàng và quán ăn phục vụ đặc sản địa phương như vịt quay 7 vị, bánh cuốn Cao Bằng, lạp xưởng gác bếp, mang đến trải nghiệm ẩm thực độc đáo cho du khách.​</p>
-                        <figure>
-                            <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2Fdf86e451e1b7c5f4b1cba1aeaafe7f7b.jpeg&w=1920&q=75" alt="Vịt quay Cao Bằng 7 vị">
-                            <figcaption>Vịt quay Cao Bằng 7 vị.</figcaption>
-                        </figure>
-                        <figure>
-                            <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2F9aebbf896ca94ff1aa71f5faa7002d23.jpeg&w=1920&q=75" alt="Lạp xưởng gác bếp">
-                            <figcaption>Lạp xưởng gác bếp.</figcaption>
-                        </figure>
-                        <figure>
-                            <img src="https://cdnv2.tgdd.vn/mwg-static/common/Common/6666tfhd.jpg" alt="Bánh cuốn Cao Bằng">
-                            <figcaption>Bánh cuốn Cao Bằng.</figcaption>
-                        </figure>
-                </details>
-                <details>
-                    <summary class="summary-1">4.3 Giao thông và di chuyển</summary>
-                    <p><strong>Xe buýt và xe khách:</strong> Từ thành phố Cao Bằng, du khách có thể sử dụng xe buýt hoặc xe khách để đến thác Bản Giốc. Tuy nhiên, phương tiện công cộng còn hạn chế, do đó, việc thuê xe máy hoặc ô tô riêng sẽ thuận tiện hơn.</p>
-                </details>
-                <details>
-                    <summary class="summary-1">4.4 Tham quan và giải trí</summary>
-                        <ul class="ul-2">
-                            <li><strong>Thác Bản Giốc</strong></li>
-                                <p class="p-1">Ngọn thác đẹp nhất Việt Nam, là một trong những tặng vật vô giá mà thiên nhiên ban tặng cho Cao Bằng. Thác Bản Giốc có độ cao 53 m, rộng 300 m, từ trên cao những khối nước lớn đổ xuống qua nhiều bậc núi đá vôi.</p>
-                                <figure>
-                                    <img src="https://dulichnahang.com/files/assets/2018/thacbangioc_1.jpg" alt="Thác Bản Giốc">
-                                    <figcaption>Thác Bản Giốc - Ngọn tháp đẹp nhất Việt Nam.</figcaption>
-                                </figure>
-                                <p class="p-1">Những khối nước lớn cuồn cuộn tuôn chảy không ngừng đổ xuống qua nhiều bậc đá vôi, tạo thành một bụi nước trắng xóa bay ngang lưng chừng núi. Hơi nước bốc lên tạo thành một màn sương mù như một dải lụa trắng vắt ngang qua sườn núi, vừa hùng vĩ vừa thơ mộng. Những ngày trời nắng, ánh nắng chiếu vào dòng thác qua làn nước bụi mù mịt tạo nên những chiếc cầu vồng lung linh huyền ảo.</p>
-                            <li><strong>Chùa Phật Tích Trúc Lâm Bản Giốc</strong>​</li>
-                                <p class="p-1">Chùa Phật Tích Trúc Lâm Bản Giốc – ngôi chùa đầu tiên được xây dựng ở nơi biên cương phía Bắc của Tổ quốc.</p>
-                                <figure>
-                                    <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2F5d167cf921da529740568d5d39bc9eeb.jpeg&w=1920&q=75" alt="Chùa Phật Tích Trúc Lâm Bản Giốc">
-                                    <figcaption>Chùa Phật Tích Trúc Lâm Bản Giốc.</figcaption>
-                                </figure>
-                                <p class="p-1">Chùa được xây dựng theo phong cách kiến trúc Phật giáo truyền thống Việt Nam trên diện tích hơn 2 ha. Từ trên chùa du khách có thể nhìn thẳng xuống thác Bản Giốc hùng vĩ.</p>
-                            <li><strong>Cột mốc 836</strong></li>
-                                <p class="p-1">Khu vực thác Bản Giốc hiện có mốc 836 mà bạn có thể dễ dàng tiếp cận chụp ảnh mà không cần xin phép như các khu vực khác (dọc theo bờ sông Quây Sơn các bạn cũng có thể dễ dàng tìm thấy rất nhiều mốc chạy dọc bờ sông, đây là đoạn biên giới tự nhiên giữa 2 nước).</p>
-                                <figure>
-                                    <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2F3b088fd34c53025df3a4f230f42ced37.jpeg&w=1920&q=75" alt="Cột mốc 836">
-                                    <figcaption>Cột mốc 836.</figcaption>
-                                </figure>
-                                <p class="p-1"> Có thể nhìn thẳng sang bên kia phía Trung Quốc sẽ có một mốc tương tự, đấy là mốc 836. Trung điểm của đường thẳng nối 2 mốc này (chính giữa dòng chảy sông Quây Sơn) là một trong các điểm tạo thành đường biên giới 2 nước.</p>
-                            <li><strong>Làng đá cổ Khuổi Ky</strong></li>
-                                <p class="p-1">Ngôi làng ở nơi giao nhau giữa hai khu vực của xã Đàm Thủy có đoạn cuối cùng của suối Khuổi Ky chảy qua nên làng mang tên con suối này. Làng Khuổi Ky có 100% hộ là dân tộc Tày với phong tục, tập quán, nếp sống sinh hoạt, trang phục thuần chất bản địa.</p>
-                                <figure>
-                                    <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2Fac19830d4b6270a51f1faf70454908ef.jpeg&w=1920&q=75" alt="Làng đá cổ Khuổi Ky">
-                                    <figcaption>Làng đá cổ Khuổi Ky.</figcaption>
-                                </figure>
-                                <p class="p-1">Người Khuổi Ky chân tình, mến khách và sẵn sàng ca hát chung vui cùng du khách đến trải nghiệm. Đến làng Khuổi Ky, du khách sẽ cảm nhận được bản sắc văn hóa riêng biệt của người Tày miền Đông Cao Bằng.</p>
-                            <li><strong>Động Ngườm Ngao</strong></li>
-                                <p class="p-1">hang động có vẻ đẹp kỳ thú này ẩn mình trong một ngọn núi hùng vỹ ở xã Đàm Thủy huyện Trùng Khánh, Cao Bằng. Do được phát hiện muộn và đưa vào du lịch chưa lâu nên hang động này vẫn giữ nguyên vẹn vẻ đẹp hoang sơ và độc đáo.</p>
-                                <figure>
-                                    <img src="https://ik.imagekit.io/tvlk/blog/2023/03/go-and-share-dong-nguom-ngao-2.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" alt="Động Ngườm Ngao">
-                                    <figcaption>Động Ngườm Ngao có không gian  rộng lớn và hệ thống nhũ đá vô cùng đa dạng phong phú.</figcaption>
-                                </figure>
-                                <p class="p-1">Ngoài những vẻ đẹp kỳ vĩ đặc sắc, động Ngườm Ngao còn đem đến cho bạn điều thú vị hiếm gặp: Tại nơi có khe hở thông lên trời trên trần động vào đúng 14 giờ chiều ngày 22 tháng 4 hàng năm, sẽ có 3 luồng ánh sáng gặp nhau khiến cho lòng động rực sáng trong vài phút. Hiện tượng này chỉ xảy ra mỗi năm một lần nên bạn cần canh thời gian để có thể quan sát. Đến đây rồi bạn sẽ thấy động Ngườm Ngao quả thật xứng đáng với nhận định là một trong số những hang động đẹp nhất cả nước.</p>
-                        </ul>
-                </details>
-            <p>Những dịch vụ và tiện ích trên giúp du khách có một chuyến tham quan thác Bản Giốc trọn vẹn và đáng nhớ!</p>
-        </details>
-    </div>
+            </details>
+        </div>
 
-    <div class="section">
-        <details>
-            <summary>5. Lưu ý khi tham quan thác Bản Giốc</summary>
-            <ul class="ul-3">
-                <li>Chuẩn bị trang phục phù hợp, giày dép thoải mái cho việc di chuyển.</li>
-                <li>Kiểm tra dự báo thời tiết trước khi đi để có kế hoạch phù hợp.​</li>
-                <li>Tôn trọng văn hóa và quy định địa phương trong quá trình tham quan.</li>
-            </ul>
-        </details>
+        <div class="section">
+            <details>
+                <summary>3. Hoạt động và trải nghiệm tại Thác Bản Giốc</summary>
+                <ul class="ul-3">
+                    <li><strong>Đi thuyền trên sông Quây Sơn:</strong> Du khách có thể thuê thuyền tre để tiếp cận gần hơn với thác, cảm nhận sự mạnh mẽ của dòng nước và chiêm ngưỡng cảnh quan từ nhiều góc độ khác nhau.</li>
+                    <figure>
+                        <img src="https://nld.mediacdn.vn/2020/12/25/anh3-1-16088613938181370619273.jpg" alt="Dòng Quây Sơn uốn lượn giữa cánh đồng xanh mướt">
+                        <figcaption>Dòng Quây Sơn uốn lượn giữa cánh đồng xanh mướt.</figcaption>
+                    </figure>
+                    <li><strong>Cắm trại và dã ngoại:</strong> Khu vực thảm cỏ rộng rãi gần chân thác là địa điểm lý tưởng để tổ chức các buổi cắm trại, picnic cùng gia đình và bạn bè, tận hưởng không khí trong lành và khung cảnh thiên nhiên tuyệt đẹp.</li>
+                    <figure>
+                        <img src="https://songcatinh.com/wp-content/uploads/2023/10/tat-tan-tat-kinh-nghiem-di-cam-trai-thac-ban-gioc-03.jpg" alt="Cắm trại tại thác Bản Giốc">
+                        <figcaption>Cắm trại tại thác Bản Giốc.</figcaption>
+                    </figure>
+                    <li><strong>Tham quan chùa Phật Tích Trúc Lâm Bản Giốc:</strong> Nằm trên ngọn núi gần thác, ngôi chùa không chỉ là nơi tâm linh mà còn là điểm ngắm cảnh tuyệt vời, bao quát toàn bộ khu vực thác và vùng biên giới.</li>
+                    <figure>
+                        <img src="https://bvhttdl.mediacdn.vn/291773308735864832/2022/8/9/chua-phat-tich-truc-lam-ban-gioc-dat-phat-o-mien-bien-gioi-cao-bang-6-1660016751092489870754-1660038410526-16600384106311680141622.jpg" alt="Chùa Trúc Lâm">
+                        <figcaption>Chùa Phật Tích Trúc Lâm Bản Giốc được khách thập phương biết đến không chỉ có vai trò to lớn về mặt tâm linh mà ngôi chùa này còn được biết đến là một địa điểm du lịch nổi tiếng với địa thế hết sức đặc biệt.</figcaption>
+                    </figure>
+                    <li><strong>Khám phá động Ngườm Ngao:</strong> Cách thác Bản Giốc khoảng 3 km, động Ngườm Ngao nổi tiếng với hệ thống thạch nhũ đa dạng và kỳ ảo, là điểm đến không thể bỏ qua khi đến khu vực này.</li>
+                    <figure>
+                        <img src="https://ik.imagekit.io/tvlk/blog/2023/03/go-and-share-dong-nguom-ngao-11.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" alt="Động Ngườm Ngao">
+                        <figcaption>Động Ngườm Ngao - Kiệt tác thiên nhiên hiếm có ở Cao Bằng.</figcaption>
+                    </figure>
+                    <li><strong>Tham gia lễ hội thác Bản Giốc:</strong> Thường được tổ chức vào đầu tháng 10 hàng năm, lễ hội là dịp để du khách trải nghiệm các hoạt động văn hóa truyền thống, trò chơi dân gian và thưởng thức ẩm thực địa phương.</li>
+                    <figure>
+                        <img src="https://nads.1cdn.vn/2023/10/12/8-xac-lap-ky-luc-then-1000-nguoi.jpg" alt="Lễ hội ở thác Bản Giốc">
+                        <figcaption>Lễ rước nước cầu quốc thái dân an, mưa thuận, gió hòa.</figcaption>
+                    </figure>
+                    <li><strong>Khám phá làng đá cổ Khuổi Ky:</strong> Ngôi làng với những ngôi nhà sàn bằng đá độc đáo, mang đậm nét văn hóa của người Tày, nằm gần thác Bản Giốc, là điểm đến thú vị cho những ai yêu thích tìm hiểu văn hóa bản địa.</li>
+                    <figure>
+                        <img src="https://daxanhthanhhoa.com/uploads/580/258-Ghe-tham-ngoi-lang-da-hon-400-nam-tuoi-o-Cao-Bang-1.png" alt="Làng đá Khuổi Ky.">
+                        <figcaption>Làng đá Khuổi Ky đang dần trở thành điểm đến du khách không thể bỏ qua khi tới xã Đàm Thủy, huyện Trùng Khánh, tỉnh Cao Bằng..</figcaption>
+                    </figure>
+                </ul>
+            </details>
+        </div>
+        <div class="section">
+            <details>
+                <summary>4. Dịch vụ và tiện ích xung quanh thác Bản Giốc</summary>
+                    <details>
+                        <summary class="summary-1">4.1 Lưu trú</summary>
+                            <ul class="ul-2">
+                                <li><strong>Sài Gòn – Bản Giốc Resort:</strong> Nằm gần thác, resort này cung cấp chỗ ở tiện nghi với tầm nhìn đẹp, giúp du khách dễ dàng tham quan và ngắm cảnh thác vào mọi thời điểm trong ngày.</li>
+                                <li><strong>Homestay địa phương:</strong> Ngoài resort, khu vực xung quanh thác còn có nhiều homestay như Minh Khang Homestay, Yến Nhi Homestay, mang đến trải nghiệm gần gũi với văn hóa bản địa và chi phí hợp lý.</li>
+                            </ul>
+                            <figure>
+                                <img src="https://sinhtour.vn/wp-content/uploads/2022/03/khach-san-o-thac-ban-gioc-1.jpg" alt="Sài Gòn – Bản Giốc resort">
+                                <figcaption>Sài Gòn – Bản Giốc resort.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://lh3.googleusercontent.com/p/AF1QipMndsp6niyasdx0YgJkLKKcGvEP0XZxEGeha4ir=s1360-w1360-h1020" alt="Yến Nhi Bản Giốc homestay">
+                                <figcaption>Yến Nhi Bản Giốc homestay.</figcaption>
+                            </figure>
+                    </details>
+                    <details>
+                        <summary class="summary-1">4.2 Ẩm thực</summary>
+                            <p><strong>Nhà hàng và quán ăn:</strong> Khu vực gần thác có các nhà hàng và quán ăn phục vụ đặc sản địa phương như vịt quay 7 vị, bánh cuốn Cao Bằng, lạp xưởng gác bếp, mang đến trải nghiệm ẩm thực độc đáo cho du khách.​</p>
+                            <figure>
+                                <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2Fdf86e451e1b7c5f4b1cba1aeaafe7f7b.jpeg&w=1920&q=75" alt="Vịt quay Cao Bằng 7 vị">
+                                <figcaption>Vịt quay Cao Bằng 7 vị.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2F9aebbf896ca94ff1aa71f5faa7002d23.jpeg&w=1920&q=75" alt="Lạp xưởng gác bếp">
+                                <figcaption>Lạp xưởng gác bếp.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://cdnv2.tgdd.vn/mwg-static/common/Common/6666tfhd.jpg" alt="Bánh cuốn Cao Bằng">
+                                <figcaption>Bánh cuốn Cao Bằng.</figcaption>
+                            </figure>
+                    </details>
+                    <details>
+                        <summary class="summary-1">4.3 Giao thông và di chuyển</summary>
+                        <p><strong>Xe buýt và xe khách:</strong> Từ thành phố Cao Bằng, du khách có thể sử dụng xe buýt hoặc xe khách để đến thác Bản Giốc. Tuy nhiên, phương tiện công cộng còn hạn chế, do đó, việc thuê xe máy hoặc ô tô riêng sẽ thuận tiện hơn.</p>
+                    </details>
+                    <details>
+                        <summary class="summary-1">4.4 Tham quan và giải trí</summary>
+                            <ul class="ul-2">
+                                <li><strong>Thác Bản Giốc</strong></li>
+                                    <p class="p-1">Ngọn thác đẹp nhất Việt Nam, là một trong những tặng vật vô giá mà thiên nhiên ban tặng cho Cao Bằng. Thác Bản Giốc có độ cao 53 m, rộng 300 m, từ trên cao những khối nước lớn đổ xuống qua nhiều bậc núi đá vôi.</p>
+                                    <figure>
+                                        <img src="https://dulichnahang.com/files/assets/2018/thacbangioc_1.jpg" alt="Thác Bản Giốc">
+                                        <figcaption>Thác Bản Giốc - Ngọn tháp đẹp nhất Việt Nam.</figcaption>
+                                    </figure>
+                                    <p class="p-1">Những khối nước lớn cuồn cuộn tuôn chảy không ngừng đổ xuống qua nhiều bậc đá vôi, tạo thành một bụi nước trắng xóa bay ngang lưng chừng núi. Hơi nước bốc lên tạo thành một màn sương mù như một dải lụa trắng vắt ngang qua sườn núi, vừa hùng vĩ vừa thơ mộng. Những ngày trời nắng, ánh nắng chiếu vào dòng thác qua làn nước bụi mù mịt tạo nên những chiếc cầu vồng lung linh huyền ảo.</p>
+                                <li><strong>Chùa Phật Tích Trúc Lâm Bản Giốc</strong>​</li>
+                                    <p class="p-1">Chùa Phật Tích Trúc Lâm Bản Giốc – ngôi chùa đầu tiên được xây dựng ở nơi biên cương phía Bắc của Tổ quốc.</p>
+                                    <figure>
+                                        <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2F5d167cf921da529740568d5d39bc9eeb.jpeg&w=1920&q=75" alt="Chùa Phật Tích Trúc Lâm Bản Giốc">
+                                        <figcaption>Chùa Phật Tích Trúc Lâm Bản Giốc.</figcaption>
+                                    </figure>
+                                    <p class="p-1">Chùa được xây dựng theo phong cách kiến trúc Phật giáo truyền thống Việt Nam trên diện tích hơn 2 ha. Từ trên chùa du khách có thể nhìn thẳng xuống thác Bản Giốc hùng vĩ.</p>
+                                <li><strong>Cột mốc 836</strong></li>
+                                    <p class="p-1">Khu vực thác Bản Giốc hiện có mốc 836 mà bạn có thể dễ dàng tiếp cận chụp ảnh mà không cần xin phép như các khu vực khác (dọc theo bờ sông Quây Sơn các bạn cũng có thể dễ dàng tìm thấy rất nhiều mốc chạy dọc bờ sông, đây là đoạn biên giới tự nhiên giữa 2 nước).</p>
+                                    <figure>
+                                        <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2F3b088fd34c53025df3a4f230f42ced37.jpeg&w=1920&q=75" alt="Cột mốc 836">
+                                        <figcaption>Cột mốc 836.</figcaption>
+                                    </figure>
+                                    <p class="p-1"> Có thể nhìn thẳng sang bên kia phía Trung Quốc sẽ có một mốc tương tự, đấy là mốc 836. Trung điểm của đường thẳng nối 2 mốc này (chính giữa dòng chảy sông Quây Sơn) là một trong các điểm tạo thành đường biên giới 2 nước.</p>
+                                <li><strong>Làng đá cổ Khuổi Ky</strong></li>
+                                    <p class="p-1">Ngôi làng ở nơi giao nhau giữa hai khu vực của xã Đàm Thủy có đoạn cuối cùng của suối Khuổi Ky chảy qua nên làng mang tên con suối này. Làng Khuổi Ky có 100% hộ là dân tộc Tày với phong tục, tập quán, nếp sống sinh hoạt, trang phục thuần chất bản địa.</p>
+                                    <figure>
+                                        <img src="https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Falbums%2F6535%2Fac19830d4b6270a51f1faf70454908ef.jpeg&w=1920&q=75" alt="Làng đá cổ Khuổi Ky">
+                                        <figcaption>Làng đá cổ Khuổi Ky.</figcaption>
+                                    </figure>
+                                    <p class="p-1">Người Khuổi Ky chân tình, mến khách và sẵn sàng ca hát chung vui cùng du khách đến trải nghiệm. Đến làng Khuổi Ky, du khách sẽ cảm nhận được bản sắc văn hóa riêng biệt của người Tày miền Đông Cao Bằng.</p>
+                                <li><strong>Động Ngườm Ngao</strong></li>
+                                    <p class="p-1">hang động có vẻ đẹp kỳ thú này ẩn mình trong một ngọn núi hùng vỹ ở xã Đàm Thủy huyện Trùng Khánh, Cao Bằng. Do được phát hiện muộn và đưa vào du lịch chưa lâu nên hang động này vẫn giữ nguyên vẹn vẻ đẹp hoang sơ và độc đáo.</p>
+                                    <figure>
+                                        <img src="https://ik.imagekit.io/tvlk/blog/2023/03/go-and-share-dong-nguom-ngao-2.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" alt="Động Ngườm Ngao">
+                                        <figcaption>Động Ngườm Ngao có không gian  rộng lớn và hệ thống nhũ đá vô cùng đa dạng phong phú.</figcaption>
+                                    </figure>
+                                    <p class="p-1">Ngoài những vẻ đẹp kỳ vĩ đặc sắc, động Ngườm Ngao còn đem đến cho bạn điều thú vị hiếm gặp: Tại nơi có khe hở thông lên trời trên trần động vào đúng 14 giờ chiều ngày 22 tháng 4 hàng năm, sẽ có 3 luồng ánh sáng gặp nhau khiến cho lòng động rực sáng trong vài phút. Hiện tượng này chỉ xảy ra mỗi năm một lần nên bạn cần canh thời gian để có thể quan sát. Đến đây rồi bạn sẽ thấy động Ngườm Ngao quả thật xứng đáng với nhận định là một trong số những hang động đẹp nhất cả nước.</p>
+                            </ul>
+                    </details>
+                <p>Những dịch vụ và tiện ích trên giúp du khách có một chuyến tham quan thác Bản Giốc trọn vẹn và đáng nhớ!</p>
+            </details>
+        </div>
+
+        <div class="section">
+            <details>
+                <summary>5. Lưu ý khi tham quan thác Bản Giốc</summary>
+                <ul class="ul-3">
+                    <li>Chuẩn bị trang phục phù hợp, giày dép thoải mái cho việc di chuyển.</li>
+                    <li>Kiểm tra dự báo thời tiết trước khi đi để có kế hoạch phù hợp.​</li>
+                    <li>Tôn trọng văn hóa và quy định địa phương trong quá trình tham quan.</li>
+                </ul>
+            </details>
+        </div>
     </div>
 </div>
+
+<script>
+    let registeredUser = '';
+    let registeredPass = '';
+
+    function showLoginForm() {
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("registerForm").style.display = "none";
+      document.getElementById("mainContent").style.display = "none";
+      document.getElementById("message").innerText = "";
+    }
+
+    function showRegisterForm() {
+      document.getElementById("registerForm").style.display = "block";
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("mainContent").style.display = "none";
+      document.getElementById("message").innerText = "";
+    }
+
+    function register() {
+      registeredUser = document.getElementById("regUser").value;
+      registeredPass = document.getElementById("regPass").value;
+      document.getElementById("message").innerText = "Đăng ký thành công! Bạn có thể đăng nhập.";
+      document.getElementById("registerForm").style.display = "none";
+    }
+
+    function login() {
+        const user = document.getElementById("loginUser").value;
+        const pass = document.getElementById("loginPass").value;
+        const messageBox = document.getElementById("login-message");
+
+        if (user === registeredUser && pass === registeredPass) {
+            document.getElementById("mainContent").style.display = "block";
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("logoutBtn").style.display = "inline-block";
+
+            const loginBtn = document.getElementById("loginBtn");
+            loginBtn.innerText = "Xin chào "+ user;;
+            loginBtn.disabled = true;
+
+            messageBox.innerText = "🎉 Đăng nhập thành công!";
+            messageBox.className = "message-box message-success";
+
+        } else {
+            messageBox.innerText = "❌ Sai tên đăng nhập hoặc mật khẩu!";
+            messageBox.className = "message-box message-error";
+        }
+        messageBox.style.display = "block";
+
+        // Ẩn sau 5 giây
+        setTimeout(() => {
+        messageBox.style.display = "none";
+        }, 3000);
+    }
+    function logout() {
+            document.getElementById("mainContent").style.display = "none";
+            document.getElementById("logoutBtn").style.display = "none";
+            const loginBtn = document.getElementById("loginBtn");
+            loginBtn.innerText = "Đăng nhập";
+            loginBtn.disabled = false;
+    }
+</script>
 
 <footer style="
 position: fixed;
@@ -307,7 +497,7 @@ background-color: #222;
 color: white;
 text-align: center;
 padding: 10px;">
-    &copy; 2025 Giới Thiệu Danh Lam Thắng Cảnh Việt Nam
+    &copy; 2025 Giới Thiệu Địa Điểm Du Lịch Việt Nam
 </footer>
 
 </body>
