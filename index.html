@@ -220,6 +220,20 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        .success-register {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -242,6 +256,7 @@
   </div>
 
   <div id="login-message" class="message-box" style="display: none;"></div>
+  <div class="success-register" id="message"></div>
   
 
   <div class="form-container" id="registerForm">
@@ -431,24 +446,35 @@
     let registeredPass = '';
 
     function showLoginForm() {
-      document.getElementById("loginForm").style.display = "block";
-      document.getElementById("registerForm").style.display = "none";
-      document.getElementById("mainContent").style.display = "none";
-      document.getElementById("message").innerText = "";
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("mainContent").style.display = "none";
+        document.getElementById("message").innerText = "";
     }
 
     function showRegisterForm() {
-      document.getElementById("registerForm").style.display = "block";
-      document.getElementById("loginForm").style.display = "none";
-      document.getElementById("mainContent").style.display = "none";
-      document.getElementById("message").innerText = "";
+        document.getElementById("registerForm").style.display = "block";
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("mainContent").style.display = "none";
+        document.getElementById("message").innerText = "";
     }
 
     function register() {
-      registeredUser = document.getElementById("regUser").value;
-      registeredPass = document.getElementById("regPass").value;
-      document.getElementById("message").innerText = "Đăng ký thành công! Bạn có thể đăng nhập.";
-      document.getElementById("registerForm").style.display = "none";
+        const message = document.getElementById("message");
+        registeredUser = document.getElementById("regUser").value;
+        registeredPass = document.getElementById("regPass").value;
+        document.getElementById("message").innerText = "Đăng ký thành công! Bạn có thể đăng nhập.";
+        document.getElementById("registerForm").style.display = "none";
+        
+        setTimeout(() => {
+        message.classList.add("fade-out");
+        }, 1000);
+
+        
+        setTimeout(() => {
+        message.innerText = "";
+        message.classList.remove("fade-out");
+        }, 2000);
     }
 
     function login() {
